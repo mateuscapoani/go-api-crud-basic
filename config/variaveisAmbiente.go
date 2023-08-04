@@ -9,6 +9,6 @@ import (
 func CarregarVariaveisDeAmbiente() {
 
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("Erro ao criar conexao com banco de dados")
+		log.Fatal("Erro ao inicializar variáveis de ambiente")
 	}
 }
