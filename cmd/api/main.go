@@ -8,6 +8,7 @@ import (
 func init() {
 	config.CarregarVariaveisDeAmbiente()
 	db.CriarConexao()
+	db.AutoMigration()
 }
 
 func main() {
