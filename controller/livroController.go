@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/mateuscapoani/go-api-crud-basic/dto/request"
+	"github.com/mateuscapoani/go-api-crud-basic/dto/response"
 	"github.com/mateuscapoani/go-api-crud-basic/service"
 )
 
@@ -17,17 +18,13 @@ func criarRotasLivros(router *gin.Engine) {
 func getLivro(context *gin.Context) {
 	idLivro, err := strconv.Atoi(context.Param("idLivro"))
 	if err != nil {
-		context.JSON(400, gin.H{
-			"message": err.Error(),
-		})
+		context.JSON(response.BadRequestResponse("Solicitação inválida"))
 		return
 	}
 
 	result, err := service.GetLivro(idLivro)
 	if err != nil {
-		context.JSON(400, gin.H{
-			"message": err.Error(),
-		})
+		context.JSON(response.NotFoundResponse("Livro não encontrado"))
 		return
 	}
 
@@ -40,9 +37,7 @@ func criarLivro(context *gin.Context) {
 
 	idLivro, err := service.CriarLivro(&livro)
 	if err != nil {
-		context.JSON(400, gin.H{
-			"message": err.Error(),
-		})
+		context.JSON(response.BadRequestResponse("Solicitação inválida"))
 		return
 	}
 
