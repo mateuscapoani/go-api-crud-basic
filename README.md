@@ -1,4 +1,4 @@
-### a fazer:
-
-- editar livro
-- deletar livro
+### Utilizado:
+- GIN-GONIC
+- GORM
+- GODOTENV
