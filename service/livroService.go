@@ -15,7 +15,29 @@ func GetLivro(idLivro int) (*response.LivroResponse, error) {
 	return &response.LivroResponse{ID: livro.ID, Nome: livro.Nome, Autor: livro.Autor, Editora: livro.Editora}, nil
 }
 
-func CriarLivro(LivroRequest *request.LivroRequest) (uint, error) {
-	livro := model.Livro{Nome: LivroRequest.Nome, Autor: LivroRequest.Autor, Editora: LivroRequest.Editora}
+func CriarLivro(livroRequest *request.LivroRequest) (uint, error) {
+	livro := model.Livro{Nome: livroRequest.Nome, Autor: livroRequest.Autor, Editora: livroRequest.Editora}
 	return repository.CriarLivro(&livro)
+}
+
+func EditarLivro(idLivro int, livroRequest *request.LivroRequest) (uint, error) {
+	livro, err := repository.GetLivro(idLivro)
+	if err != nil {
+		return 0, err
+	}
+
+	livro.Nome = livroRequest.Nome
+	livro.Autor = livroRequest.Autor
+	livro.Editora = livroRequest.Editora
+
+	return repository.EditarLivro(livro)
+}
+
+func DeletarLivro(idLivro int) (uint, error) {
+	_, err := repository.GetLivro(idLivro)
+	if err != nil {
+		return 0, err
+	}
+
+	return repository.DeletarLivro(idLivro)
 }
